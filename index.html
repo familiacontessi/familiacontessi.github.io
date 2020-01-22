@@ -26,6 +26,9 @@ window.onload = function () {
     OrgChart.templates.family_template_11.title_1 = '<text class="title_1" style="font-size: 12px;" fill="#aeaeae" x="100" y="120" text-anchor="middle">{val}</text>';
     OrgChart.templates.family_template_11.title_2 = '<text class="title_2" style="font-size: 12px;" fill="#aeaeae" x="235" y="120" text-anchor="middle">{val}</text>';
     OrgChart.templates.family_template_11.title_3 = '<text class="title_3" style="font-size: 12px;" fill="#aeaeae" x="370" y="120" text-anchor="middle">{val}</text>';
+    OrgChart.templates.family_template_11.nascimento_1 = '<text class="nascimento_1" style="font-size: 12px;" fill="#aeaeae" x="100" y="135" text-anchor="middle">{val}</text>';
+    OrgChart.templates.family_template_11.nascimento_2 = '<text class="nascimento_1" style="font-size: 12px;" fill="#aeaeae" x="235" y="135" text-anchor="middle">{val}</text>';
+    OrgChart.templates.family_template_11.nascimento_3 = '<text class="nascimento_1" style="font-size: 12px;" fill="#aeaeae" x="370" y="135" text-anchor="middle">{val}</text>';
     OrgChart.templates.family_template_11.img_0 = '<clipPath id="{randId}"><circle cx="100" cy="45" r="40"></circle></clipPath><circle stroke-width="3" fill="none" stroke="#aeaeae" cx="100" cy="45" r="45"></circle><image preserveAspectRatio="xMidYMid slice" clip-path="url(#{randId})" xlink:href="{val}" x="60" y="5"  width="80" height="80"></image>';
     OrgChart.templates.family_template_11.linkAdjuster =
         {
@@ -130,9 +133,28 @@ window.onload = function () {
                 template: "family_template_12"
             }
         },
+
         enableSearch: true,
+        enableDragDrop: false,
         nodeMouseClick: OrgChart.action.none,
         mouseScrool: OrgChart.action.zoom,
+
+        menu: {
+            pdfPreview: {
+                text: "PDF Preview",
+                icon: OrgChart.icon.pdf(24,24, '#7A7A7A'),
+                onClick: preview
+            },
+            pdf: { text: "Export PDF" },
+            png: { text: "Export PNG" },
+            svg: { text: "Export SVG" },
+            csv: { text: "Export CSV" }
+        },
+        nodeMenu: {
+            pdf: { text: "Export PDF" },
+            png: { text: "Export PNG" },
+            svg: { text: "Export SVG" }
+        },
         nodeBinding: {
             name_1: "name1",
             name_2: "name2",
@@ -142,15 +164,18 @@ window.onload = function () {
             title_3: "title3",
             img_0: "img0",
             img_1: "img1",
-            img_2: "img2"
+            img_2: "img2",
+            nascimento_1: "nascimento1",
+            nascimento_2: "nascimento2",
+            nascimento_3: "nascimento3"
         },
         nodes: [
             { id: "1", tags: ["family_template_24"], name1: "King George VI", name2: "Queen Elizabeth,", title2: "The Queen Mother", img0: "https://cdn.balkan.app/shared/f1.png", img1: "https://cdn.balkan.app/shared/f2.png" },
             { id: "2", pid: 1, tags: ["family_template_25"], name1: "Prince Philip", name2: "Queen Elizabeth II", title1: "Duke of Edinburgh", img0: "https://cdn.balkan.app/shared/f3.png", img1: "https://cdn.balkan.app/shared/f5.png" },
             { id: "3", pid: 1, tags: ["family_template_11"], name1: "Princess Margaret", img0: "https://cdn.balkan.app/shared/f6.png" },
-            { id: "4", pid: 2, tags: ["family_template_31"], name1: "Camila,", name2: "Charles,", name3: "Diana,", title1: "Duchess of Cornwall", title2: "Prince of Wales", title3: "Princess of Wales", img0: "https://cdn.balkan.app/shared/f7.png", img1: "https://cdn.balkan.app/shared/f8.png", img2: "https://cdn.balkan.app/shared/f9.png" },
-            { id: "5", pid: 2, tags: ["family_template_11"], name1: "Anne", title1: "Princess Royal", img0: "https://cdn.balkan.app/shared/f10.png" },
-            { id: "6", pid: 2, tags: ["family_template_11"], name1: "Prince Andrew", title1: "Duke of York", img0: "https://cdn.balkan.app/shared/f11.png" },
+            { id: "4", pid: 2, tags: ["family_template_31"], name1: "Camila,", name2: "Charles,", name3: "Diana,", title1: "Duchess of Cornwall", title2: "Prince of Wales", title3: "Princess of Wales", nascimento3: "03/03/2020", img0: "https://cdn.balkan.app/shared/f7.png", img1: "https://cdn.balkan.app/shared/f8.png", img2: "https://cdn.balkan.app/shared/f9.png" },
+            { id: "5", pid: 2, tags: ["family_template_11"], name1: "Anne", title1: "Princess Royal", nascimento1: "* 01/01/2020", img0: "https://cdn.balkan.app/shared/f10.png" },
+            { id: "6", pid: 2, tags: ["family_template_11"], name1: "Prince Andrew", title1: "Duke of York", nascimento1: "02/02/2020", img0: "https://cdn.balkan.app/shared/f11.png" },
             { id: "7", pid: 2, pid: 2, tags: ["family_template_11"], name1: "Prince Edward", title1: "Earl of Wessex", img0: "https://cdn.balkan.app/shared/f12.png" },
             { id: "8", pid: 4, tags: ["family_template_23"], name1: "Catherine,", name2: "Prince William", title1: "Duchess of Cambridge", title2: "Duch of Cambridge", img0: "https://cdn.balkan.app/shared/f13.png", img1: "https://cdn.balkan.app/shared/f14.png" },
             { id: "9", pid: 4, tags: ["family_template_22"], name1: "Prince Harry", name2: "Meghan Markle", img0: "https://cdn.balkan.app/shared/f15.png", img1: "https://cdn.balkan.app/shared/f16.png" },
@@ -159,6 +184,12 @@ window.onload = function () {
             { id: "12", pid: 8, tags: ["family_template_12"], name1: "Prince Louis of Cambridge", img0: "https://cdn.balkan.app/shared/f19.png" }
         ]
     });
+
+    function preview(){
+        OrgChart.pdfPrevUI.show(chart, {
+            format: 'A4'
+        });
+    }
 };
     </script>
 

@@ -11,3 +11,16 @@ html, body {
     width: 100%;
     height: 100%;
 }
+
+[control-node-menu-id] circle {
+
+    fill: darkred;
+}
+
+[control-node-menu-id] rect {
+    fill-opacity: 1;
+
+}
+
+
+
